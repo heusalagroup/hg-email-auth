@@ -27,6 +27,8 @@ docker-compose up
 
 Email messages are readable from http://localhost:8025 (e.g. nothing is really sent)
 
+***Warning!*** Make sure to modify `BACKEND_JWT_SECRET` and other settings from the `docker-compose.yml` before production use!
+
 ### Using the API using `curl`
 
 #### Initiating the authentication
