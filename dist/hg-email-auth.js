@@ -503,7 +503,7 @@ e);try{if(a)return;a=!0,i()}catch(e){n(e)}};process.on("exit",e("exit")),process
 `Closing process because "${e}" event: `,t):"exit"===e?qp.debug(`Closing process because "${e}" event`):qp.info(
 `Closing process because "${e}" event`)}catch(e){console.error("Error while printing errors: ",e)}}}ne("1.0.0"),
 u=null!=(i=ne("%{BUILD_BACKEND_URL}"))?i:"http://0.0.0.0:3000",Dl=null!=(s=ne(""))?s:"nor-backend",Al=null!=(x=ne("")
-)?x:"",ne("production"),ne("2022-03-21T12:43:03.349Z"),"".startsWith("%{")&&"".endsWith("}"),h=null!=(v=ne(
+)?x:"",ne("production"),ne("2022-03-21T21:52:58.896Z"),"".startsWith("%{")&&"".endsWith("}"),h=null!=(v=ne(
 "%{BUILD_EMAIL_FROM}"))?v:"hg-auth-email <info@example.com>",Cl=null!=(R=ne("%{BUILD_JWT_SECRET}"))?R:"",Kl=null!=(y=ne(
 "%{BUILD_JWT_ALG}"))?y:"HS256",Pl=null!=(b=ne("%{BUILD_EMAIL_CONFIG}"))?b:"smtp://localhost:25",m=null!=(w=function(e){
 if(e){if(function(){switch(e){case c.DEBUG:case c.INFO:case c.WARN:case c.ERROR:case c.NONE:return 1;default:return}}()
