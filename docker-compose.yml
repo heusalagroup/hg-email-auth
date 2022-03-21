@@ -1,9 +1,23 @@
 version: '3.1'
 
 services:
+
+  hg-email-auth-smtp:
+    container_name: hg-email-auth-smtp
+    image: mailhog/mailhog
+    restart: always
+    logging:
+      driver: 'none'  # disable saving logs
+    ports:
+    - "1025:1025" # smtp server
+    - "8025:8025" # web ui
+
   hg-email-auth-backend:
     build: .
     environment:
+      BACKEND_JWT_SECRET: "top-secret-string"
+      BACKEND_EMAIL_FROM: "hg-email-auth-smtp <info@example.com>"
+      BACKEND_EMAIL_CONFIG: "smtp://hg-email-auth-smtp:1025"
       BACKEND_LOG_LEVEL: DEBUG
       BACKEND_URL: "http://0.0.0.0:3500"
 

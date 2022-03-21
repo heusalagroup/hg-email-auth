@@ -503,7 +503,7 @@ e);try{if(a)return;a=!0,i()}catch(e){n(e)}};process.on("exit",e("exit")),process
 `Closing process because "${e}" event: `,t):"exit"===e?qp.debug(`Closing process because "${e}" event`):qp.info(
 `Closing process because "${e}" event`)}catch(e){console.error("Error while printing errors: ",e)}}}ne("1.0.0"),
 u=null!=(i=ne("%{BUILD_BACKEND_URL}"))?i:"http://0.0.0.0:3000",Dl=null!=(s=ne(""))?s:"nor-backend",Al=null!=(x=ne("")
-)?x:"",ne("production"),ne("2022-03-21T12:11:37.642Z"),"".startsWith("%{")&&"".endsWith("}"),h=null!=(v=ne(
+)?x:"",ne("production"),ne("2022-03-21T12:43:03.349Z"),"".startsWith("%{")&&"".endsWith("}"),h=null!=(v=ne(
 "%{BUILD_EMAIL_FROM}"))?v:"hg-auth-email <info@example.com>",Cl=null!=(R=ne("%{BUILD_JWT_SECRET}"))?R:"",Kl=null!=(y=ne(
 "%{BUILD_JWT_ALG}"))?y:"HS256",Pl=null!=(b=ne("%{BUILD_EMAIL_CONFIG}"))?b:"smtp://localhost:25",m=null!=(w=function(e){
 if(e){if(function(){switch(e){case c.DEBUG:case c.INFO:case c.WARN:case c.ERROR:case c.NONE:return 1;default:return}}()
@@ -3194,37 +3194,38 @@ Jh=A.createLogger("EmailAuthController");class Qh{static setDefaultLanguage(e){t
 static async authenticateEmail(e,t=""){var i,n,a,o,r,s;try{if(n=null!=(i=function(){switch((""+t).toUpperCase()){
 case"FI":case"FINNISH":return kc.FINNISH;case"EN":case"ENGLISH":return kc.ENGLISH;default:return}}()
 )?i:this._defaultLanguage,!(X(s=e)&&ee(s,["email"])&&l(null==s?void 0:s.email)))return P.badRequest().body(Pe(
-"Body not AuthenticateEmailDTO"));if(Jh.debug("authenticateEmail: body = ",e),!(a=e.email))return P.badRequest().body(
-Pe("body.email required",400));o=yd.createVerificationCode(a),r=_d.createUnverifiedEmailToken(a);try{await class{
-static async sendAuthenticationCode(e,t,i){var i={CODE:i},i=(e=await Ed.translateKeys(e,[Td,Rd,Od,Ad,Cd,Pd,jd],i))[Td],
-n=e[Rd]+e[Od]+e[Ad],e=e[Cd]+e[Pd]+e[jd];await Gh.sendEmailMessage({to:t,subject:i,content:n,htmlContent:e}),Kh.info(
+"Body not AuthenticateEmailDTO",400)).status(400);if(Jh.debug("authenticateEmail: body = ",e),!(a=e.email)
+)return P.badRequest().body(Pe("body.email required",400)).status(400);o=yd.createVerificationCode(a),
+r=_d.createUnverifiedEmailToken(a);try{await class{static async sendAuthenticationCode(e,t,i){var i={CODE:i},i=(
+e=await Ed.translateKeys(e,[Td,Rd,Od,Ad,Cd,Pd,jd],i))[Td],n=e[Rd]+e[Od]+e[Ad],e=e[Cd]+e[Pd]+e[jd];
+await Gh.sendEmailMessage({to:t,subject:i,content:n,htmlContent:e}),Kh.info(
 "sendAuthenticationCode: Sent successfully to "+t)}}.sendAuthenticationCode(n,a,o)}catch(e){return Jh.error(
-"authenticateEmail: Could not send email: ",e),P.internalServerError().body(Pe("Internal error",500))}return P.ok(r)
-}catch(e){return Jh.error("ERROR: ",e),P.internalServerError().body(Pe("Internal Server Error",500))}}
-static async verifyEmailCode(e){var t,i,n,a,o,r;try{return X(r=e)&&ee(r,["token","code"])&&Xt(null==r?void 0:r.token
-)&&l(null==r?void 0:r.code)?(Jh.debug("verifyEmailCode: body = ",e),i=null==(t=null==e?void 0:e.token)?void 0:t.token,
-n=null==t?void 0:t.email,a=null==e?void 0:e.code,n&&a&&yd.verifyCode(n,a)&&i&&n&&_d.verifyToken(n,i,!1)?(
-o=_d.createVerifiedEmailToken(n),P.ok(o)):P.internalServerError().body(Pe("Access denied",403))):P.badRequest().body(Pe(
-"Body not VerifyEmailCodeDTO"))}catch(e){return Jh.error("ERROR: ",e),P.internalServerError().body(Pe(
-"Internal Server Error"))}}static async verifyEmailToken(e){var t,i,n,a,o,r,s,c;try{return X(c=e)&&ee(c,["token"])&&Xt(
-null==c?void 0:c.token)?(Jh.debug("verifyEmailToken: body = ",e),o=null!=(t=null==e||null==(i=e.token)?void 0:i.token
-)?t:"",r=null!=(n=null==e||null==(a=e.token)?void 0:a.email)?n:"",o&&r&&_d.verifyToken(r,o,!0)?(
-s=_d.createVerifiedEmailToken(r),P.ok(s)):P.internalServerError().body(Pe("Access denied",403))):P.badRequest().body(Pe(
-"Body not VerifyEmailTokenDTO"))}catch(e){return Jh.error("ERROR: ",e),P.internalServerError().body(Pe(
-"Internal Server Error"))}}}r(Qh,"_defaultLanguage",kc.ENGLISH),Tl={LANGUAGE:"l"};const Wh=A.createLogger(
-"BackendController");let Xh=class{static setDefaultLanguage(e){Qh.setDefaultLanguage(e)}static async getIndex(e){try{
-return P.ok({hello:"world"})}catch(e){return Wh.error("ERROR: ",e),P.internalServerError().body({
-error:"Internal Server Error"})}}static async authenticateEmail(e,t=""){return Qh.authenticateEmail(e,t)}
-static async verifyEmailToken(e){return Qh.verifyEmailToken(e)}static async verifyEmailCode(e){
-return Qh.verifyEmailCode(e)}};Te([L.getMapping("/"),Re(0,(T={required:!1,defaultValue:""},vd.debug("RequestHeader: ",
-"X-Authorization",T,void 0),L.header("X-Authorization",T,void 0))),Oe("design:type",Function),Oe("design:paramtypes",[
-String]),Oe("design:returntype",Promise)],Xh,"getIndex",null),Te([Ae("/authenticateEmail"),Re(0,Ce),Re(1,(O=_c.STRING,
-L.param(Tl.LANGUAGE,O,void 0))),Oe("design:type",Function),Oe("design:paramtypes",[Object,Object]),Oe(
-"design:returntype",Promise)],Xh,"authenticateEmail",null),Te([Ae("/verifyEmailToken"),Re(0,Ce),Oe("design:type",
-Function),Oe("design:paramtypes",[Object]),Oe("design:returntype",Promise)],Xh,"verifyEmailToken",null),Te([Ae(
-"/verifyEmailCode"),Re(0,Ce),Oe("design:type",Function),Oe("design:paramtypes",[Object]),Oe("design:returntype",Promise)
-],Xh,"verifyEmailCode",null),Xh=Te([L.mapping("/")],Xh);const Yh={en:{"common.siteName":"example.com",
-"common.companyName":"Example Inc","m.common.siteName":"$t(common.siteName)",
+"authenticateEmail: Could not send email: ",e),P.internalServerError().body(Pe("Internal error",500)).status(500)}
+return P.ok(r)}catch(e){return Jh.error("ERROR: ",e),P.internalServerError().body(Pe("Internal Server Error",500)
+).status(500)}}static async verifyEmailCode(e){var t,i,n,a,o,r;try{return X(r=e)&&ee(r,["token","code"])&&Xt(
+null==r?void 0:r.token)&&l(null==r?void 0:r.code)?(Jh.debug("verifyEmailCode: body = ",e),i=null==(
+t=null==e?void 0:e.token)?void 0:t.token,n=null==t?void 0:t.email,a=null==e?void 0:e.code,n&&a&&yd.verifyCode(n,a
+)&&i&&n&&_d.verifyToken(n,i,!1)?(o=_d.createVerifiedEmailToken(n),P.ok(o)):P.internalServerError().body(Pe(
+"Access denied",403)).status(403)):P.badRequest().body(Pe("Body not VerifyEmailCodeDTO",400)).status(400)}catch(e){
+return Jh.error("ERROR: ",e),P.internalServerError().body(Pe("Internal Server Error",500)).status(500)}}
+static async verifyEmailToken(e){var t,i,n,a,o,r,s,c;try{return X(c=e)&&ee(c,["token"])&&Xt(null==c?void 0:c.token)?(
+Jh.debug("verifyEmailToken: body = ",e),o=null!=(t=null==e||null==(i=e.token)?void 0:i.token)?t:"",r=null!=(
+n=null==e||null==(a=e.token)?void 0:a.email)?n:"",o&&r&&_d.verifyToken(r,o,!0)?(s=_d.createVerifiedEmailToken(r),P.ok(s)
+):P.badRequest().body(Pe("Access denied",403)).status(403)):P.badRequest().body(Pe("Body not VerifyEmailTokenDTO",400)
+).status(400)}catch(e){return Jh.error("ERROR: ",e),P.internalServerError().body(Pe("Internal Server Error",500)
+).status(500)}}}r(Qh,"_defaultLanguage",kc.ENGLISH),Tl={LANGUAGE:"l"};const Wh=A.createLogger("BackendController");
+let Xh=class{static setDefaultLanguage(e){Qh.setDefaultLanguage(e)}static async getIndex(e){try{return P.ok({
+hello:"world"})}catch(e){return Wh.error("ERROR: ",e),P.internalServerError().body({error:"Internal Server Error"})}}
+static async authenticateEmail(e,t=""){return Qh.authenticateEmail(e,t)}static async verifyEmailToken(e){
+return Qh.verifyEmailToken(e)}static async verifyEmailCode(e){return Qh.verifyEmailCode(e)}};Te([L.getMapping("/"),Re(0,
+(T={required:!1,defaultValue:""},vd.debug("RequestHeader: ","X-Authorization",T,void 0),L.header("X-Authorization",T,
+void 0))),Oe("design:type",Function),Oe("design:paramtypes",[String]),Oe("design:returntype",Promise)],Xh,"getIndex",
+null),Te([Ae("/authenticateEmail"),Re(0,Ce),Re(1,(O=_c.STRING,L.param(Tl.LANGUAGE,O,void 0))),Oe("design:type",Function)
+,Oe("design:paramtypes",[Object,Object]),Oe("design:returntype",Promise)],Xh,"authenticateEmail",null),Te([Ae(
+"/verifyEmailToken"),Re(0,Ce),Oe("design:type",Function),Oe("design:paramtypes",[Object]),Oe("design:returntype",Promise
+)],Xh,"verifyEmailToken",null),Te([Ae("/verifyEmailCode"),Re(0,Ce),Oe("design:type",Function),Oe("design:paramtypes",[
+Object]),Oe("design:returntype",Promise)],Xh,"verifyEmailCode",null),Xh=Te([L.mapping("/")],Xh);const Yh={en:{
+"common.siteName":"example.com","common.companyName":"Example Inc","m.common.siteName":"$t(common.siteName)",
 "m.common.companyName":"$t(common.companyName)","m.common.headerText":"Hi,\n","m.common.headerHtml":"<p>Hi,</p>\n",
 "m.common.footerText":"-- \n$t(m.common.siteName)\n$t(m.common.companyName)\n",
 "m.common.footerHtml":"<hr>\n$t(m.common.siteName)<br>\n$t(m.common.companyName)<br>\n",
