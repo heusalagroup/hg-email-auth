@@ -14,7 +14,6 @@ import {
     BACKEND_EMAIL_CONFIG,
     BACKEND_EMAIL_FROM
 } from "./constants/runtime";
-
 import { LogService } from "./fi/hg/core/LogService";
 import { LogLevel } from "./fi/hg/core/types/LogLevel";
 
@@ -53,7 +52,7 @@ export async function main (
         EmailTokenService.setJwtEngine(
             JwtService.createJwtEngine(
                 BACKEND_JWT_SECRET,
-                BACKEND_JWT_ALG as unknown as Algorithm
+                BACKEND_JWT_ALG
             )
         );
 
