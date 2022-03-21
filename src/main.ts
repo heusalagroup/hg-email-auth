@@ -8,7 +8,11 @@ ProcessUtils.initEnvFromDefaultFiles();
 import {
     BACKEND_SCRIPT_NAME,
     BACKEND_LOG_LEVEL,
-    BACKEND_URL
+    BACKEND_URL,
+    BACKEND_JWT_SECRET,
+    BACKEND_JWT_ALG,
+    BACKEND_EMAIL_CONFIG,
+    BACKEND_EMAIL_FROM
 } from "./constants/runtime";
 
 import { LogService } from "./fi/hg/core/LogService";
@@ -25,6 +29,12 @@ import { BackendController } from "./controllers/BackendController";
 import { RequestRouter } from "./fi/hg/core/requestServer/RequestRouter";
 import { Headers } from "./fi/hg/core/request/Headers";
 import { BUILD_USAGE_URL, BUILD_WITH_FULL_USAGE } from "./constants/build";
+import { EmailTokenService } from "./fi/hg/backend/EmailTokenService";
+import { JwtService } from "./fi/hg/backend/JwtService";
+import { BackendTranslationService } from "./fi/hg/backend/BackendTranslationService";
+import { EmailService } from "./fi/hg/backend/EmailService";
+import { TRANSLATIONS } from "./fi/hg/auth/email/translations";
+import { DEFAULT_LANGUAGE } from "./fi/hg/auth/email/translation";
 
 const LOG = LogService.createLogger('main');
 
@@ -38,8 +48,21 @@ export async function main (
         RequestRouter.setLogLevel(LogLevel.INFO);
         RequestClient.setLogLevel(LogLevel.INFO);
         RequestServer.setLogLevel(LogLevel.INFO);
-
         LOG.debug(`Loglevel as ${LogService.getLogLevelString()}`);
+
+        EmailTokenService.setJwtEngine(
+            JwtService.createJwtEngine(
+                BACKEND_JWT_SECRET,
+                BACKEND_JWT_ALG as unknown as Algorithm
+            )
+        );
+
+        BackendController.setDefaultLanguage(DEFAULT_LANGUAGE);
+
+        await BackendTranslationService.initialize(DEFAULT_LANGUAGE, TRANSLATIONS);
+
+        EmailService.initialize(BACKEND_EMAIL_CONFIG);
+        EmailService.setDefaultFrom(BACKEND_EMAIL_FROM);
 
         const {scriptName, parseStatus, exitStatus, errorString} = CommandArgumentUtils.parseArguments(BACKEND_SCRIPT_NAME, args);
 

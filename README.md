@@ -1,12 +1,6 @@
 # @heusalagroup/hg-email-auth
 
-### Start the server in development mode
-
-FIXME: This isn't working right now. Use production mode.
-
-```
-npm start
-```
+Simple stateless HTTP REST microservice to verify the ownership of an email address.
 
 ### Build the server
 

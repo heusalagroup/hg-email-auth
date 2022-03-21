@@ -72,3 +72,23 @@ export const IS_TEST        : boolean = BUILD_NODE_ENV === 'test';
  * @__PURE__
  */
 export const IS_DEVELOPMENT : boolean = !IS_PRODUCTION && !IS_TEST;
+
+/**
+ * @__PURE__
+ */
+export const BUILD_EMAIL_FROM : string  = /* @__PURE__ */parseNonEmptyString('%{BUILD_EMAIL_FROM}') ?? 'hg-auth-email <info@example.com>';
+
+/**
+ * @__PURE__
+ */
+export const BUILD_JWT_SECRET : string  = /* @__PURE__ */parseNonEmptyString('%{BUILD_JWT_SECRET}') ?? '';
+
+/**
+ * @__PURE__
+ */
+export const BUILD_JWT_ALG : string  = /* @__PURE__ */parseNonEmptyString('%{BUILD_JWT_ALG}') ?? 'HS256';
+
+/**
+ * @__PURE__
+ */
+export const BUILD_EMAIL_CONFIG : string  = /* @__PURE__ */parseNonEmptyString('%{BUILD_EMAIL_CONFIG}') ?? 'smtp://localhost:25';
