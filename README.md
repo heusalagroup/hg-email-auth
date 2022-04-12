@@ -111,3 +111,8 @@ Unsuccessful response will be:
   "code": 403
 }
 ```
+
+### License
+
+Copyright (c) Heusala Group. All rights reserved. Licensed under the MIT License (the "[License](./LICENSE)");
+
